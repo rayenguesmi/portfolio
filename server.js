@@ -21,37 +21,42 @@ if (!token) {
 }
 
 app.post('/api/chat', async (req, res) => {
+  if (!token) {
+    return res.status(500).json({ error: "GITHUB_TOKEN is not configured on the server." });
+  }
+
   try {
     const { messages } = req.body;
 
-    if (!messages) {
-      return res.status(400).json({ error: "Messages are required" });
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({ error: "Messages array is required" });
     }
 
-    const client = ModelClient(
-      endpoint,
-      new AzureKeyCredential(token)
-    );
+    const client = ModelClient(endpoint, new AzureKeyCredential(token));
 
     const response = await client.path("/chat/completions").post({
       body: {
-        messages: messages,
-        temperature: 1.0,
+        messages,
+        temperature: 0.8,
         top_p: 1.0,
         max_tokens: 1000,
-        model: modelName
-      }
+        model: modelName,
+      },
     });
 
     if (isUnexpected(response)) {
-      throw response.body.error;
+      const errBody = response.body?.error;
+      const errMsg = errBody?.message || errBody?.code || JSON.stringify(errBody) || "Unexpected API response";
+      console.error("GitHub Models API error:", errBody);
+      return res.status(response.status || 500).json({ error: errMsg });
     }
 
     res.json(response.body);
 
   } catch (error) {
-    console.error("API Error:", error);
-    res.status(500).json({ error: error.message || "Internal Server Error" });
+    const msg = error?.message || (typeof error === "string" ? error : JSON.stringify(error)) || "Internal Server Error";
+    console.error("API Error:", msg, error);
+    res.status(500).json({ error: msg });
   }
 });
 

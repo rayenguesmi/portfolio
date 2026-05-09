@@ -8,9 +8,7 @@ export const CyberParticles = () => {
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
-    });
+    }).then(() => setInit(true));
   }, []);
 
   if (!init) return null;
@@ -20,72 +18,49 @@ export const CyberParticles = () => {
       id="cyber-particles"
       options={{
         fullScreen: { enable: false },
-        background: {
-          color: {
-            value: "transparent",
-          },
-        },
-        fpsLimit: 120,
+        background: { color: { value: "transparent" } },
+        fpsLimit: 60,
         interactivity: {
           events: {
-            onClick: {
-              enable: true,
-              mode: "push",
-            },
-            onHover: {
-              enable: true,
-              mode: "grab",
-            },
+            onHover: { enable: true, mode: "grab" },
+            onClick: { enable: true, mode: "push" },
             resize: { enable: true },
           },
           modes: {
-            push: {
-              quantity: 4,
-            },
-            grab: {
-              distance: 140,
-              links: {
-                opacity: 0.5,
-              },
-            },
+            grab: { distance: 160, links: { opacity: 0.35 } },
+            push: { quantity: 2 },
           },
         },
         particles: {
           color: {
-            value: "#00FF00",
+            value: ["#c9a84c", "#4f8ef7", "#e8c96a"],
           },
           links: {
-            color: "#00FF00",
-            distance: 150,
+            color: "#c9a84c",
+            distance: 160,
             enable: true,
-            opacity: 0.2,
+            opacity: 0.12,
             width: 1,
           },
           move: {
-            direction: "none",
             enable: true,
-            outModes: {
-              default: "bounce",
-            },
-            random: false,
-            speed: 1,
+            speed: 0.6,
+            direction: "none",
+            random: true,
             straight: false,
+            outModes: { default: "bounce" },
           },
           number: {
-            density: {
-              enable: true,
-              area: 800,
-            },
-            value: 100,
+            value: 55,
+            density: { enable: true },
           },
           opacity: {
-            value: 0.5,
+            value: { min: 0.2, max: 0.55 },
+            animation: { enable: true, speed: 0.8 },
           },
-          shape: {
-            type: "circle",
-          },
+          shape: { type: "circle" },
           size: {
-            value: { min: 2, max: 4 },
+            value: { min: 1, max: 3 },
           },
         },
         detectRetina: true,

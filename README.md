@@ -1,4 +1,4 @@
-# 🚀 ROOTKEPEER - Malek Aziz Hassayoun's Portfolio
+# 🚀 ROOTKEPEER - Rayen Guesmi's Portfolio
 
 ![Portfolio Preview](/public/Capture%20d'écran%202025-12-18%20164235.png)
 
@@ -57,7 +57,7 @@ Follow these steps to set up the project locally.
 
 1.  **Clone the repository**
     ```sh
-    git clone https://github.com/m2l33k/My-Portfolio
+    git clone https://github.com/rayenguesmi/My-Portfolio
     cd My-Portfolio
     ```
 
@@ -122,11 +122,11 @@ The output will be in the `dist` folder.
 
 ## 📬 Contact
 
-**Malek Aziz Hassayoun**
+**Rayen Guesmi**
 
-*   📧 Email: [malekaziz.hassayoun@esprit.tn](mailto:malekaziz.hassayoun@esprit.tn)
-*   🔗 LinkedIn: [Profile Link](https://linkedin.com/in/malek-hassayoun)
-*   🐙 GitHub: [Profile Link](https://github.com/m2l33k)
+*   📧 Email: [rayen.guesmi@esprit.tn](mailto:rayen.guesmi@esprit.tn)
+*   🔗 LinkedIn: [Profile Link](https://linkedin.com/in/rayen-guesmi-3141a1308)
+*   🐙 GitHub: [Profile Link](https://github.com/rayenguesmi)
 
 ---
-*Built with ❤️ by Malek Aziz Hassayoun*
+*Built with ❤️ by Rayen Guesmi*

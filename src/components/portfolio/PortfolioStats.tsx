@@ -1,9 +1,8 @@
-import { Card } from "@/components/ui/card";
-import { Briefcase, BarChart, Award } from "lucide-react";
+import { Briefcase, BarChart2, Award } from "lucide-react";
 import { useEffect, useState } from "react";
 import { projects, internships, certifications } from "@/data/portfolio";
 
-const CountUp = ({ end, duration = 2000 }: { end: number, duration?: number }) => {
+const CountUp = ({ end, duration = 1800 }: { end: number; duration?: number }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -12,40 +11,38 @@ const CountUp = ({ end, duration = 2000 }: { end: number, duration?: number }) =
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / duration, 1);
       setCount(Math.floor(progress * end));
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      }
+      if (progress < 1) requestAnimationFrame(step);
     };
-    window.requestAnimationFrame(step);
+    requestAnimationFrame(step);
   }, [end, duration]);
 
   return <>{count}</>;
 };
 
 const PortfolioStats = () => {
-  const completedProjects = projects.filter(p => p.status === "Completed").length;
+  const completedProjects = projects.filter((p) => p.status === "Completed").length;
+
   const stats = [
-    { name: "Projects Completed", value: completedProjects, icon: Briefcase },
-    { name: "Internships", value: internships.length, icon: BarChart },
-    { name: "Certifications", value: certifications.length, icon: Award },
+    { label: "Projects", value: completedProjects, icon: Briefcase },
+    { label: "Internships",  value: internships.length,    icon: BarChart2 },
+    { label: "Certifications", value: certifications.length, icon: Award },
   ];
 
   return (
-    <Card className="p-4 bg-card/50 backdrop-blur-sm">
-      <div className="flex justify-around divide-x divide-border">
-        {stats.map((stat, index) => (
-          <div key={index} className="flex-1 flex flex-col items-center justify-center p-2">
-            <div className="flex items-center gap-2">
-              <stat.icon className="h-5 w-5 text-primary" />
-              <span className="text-2xl font-bold text-foreground">
-                <CountUp end={stat.value} />
-              </span>
-            </div>
-            <p className="text-sm text-muted-foreground mt-1">{stat.name}</p>
-          </div>
-        ))}
-      </div>
-    </Card>
+    <div className="grid grid-cols-3 gap-3 mt-2">
+      {stats.map(({ label, value, icon: Icon }, i) => (
+        <div
+          key={i}
+          className="flex flex-col items-center gap-1 py-3 px-2 rounded-xl border border-border bg-card/40 backdrop-blur-sm hover:border-primary/30 transition-colors"
+        >
+          <Icon className="h-4 w-4 text-primary mb-0.5" />
+          <span className="text-2xl font-extrabold text-foreground leading-none">
+            <CountUp end={value} />
+          </span>
+          <p className="text-xs text-muted-foreground text-center leading-tight">{label}</p>
+        </div>
+      ))}
+    </div>
   );
 };
 

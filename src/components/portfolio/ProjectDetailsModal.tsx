@@ -17,6 +17,7 @@ import {
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Calendar, MapPin, Building2, CheckCircle2, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Define the interface based on usage in ProjectsSection
 export interface Project {
@@ -42,6 +43,7 @@ interface ProjectDetailsModalProps {
 }
 
 const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalProps) => {
+  const { t } = useLanguage();
   if (!project) return null;
 
   // Determine what media to show:
@@ -69,7 +71,7 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
               variant={project.status === "Completed" ? "default" : "secondary"}
               className="shrink-0"
             >
-              {project.status}
+              {project.status === "Completed" ? t("modal.completed") : project.status}
             </Badge>
           </div>
         </DialogHeader>
@@ -79,7 +81,7 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
             {/* Video Player */}
             {hasVideo && (
               <div className="w-full">
-                <h3 className="text-lg font-semibold mb-3">Demo</h3>
+                <h3 className="text-lg font-semibold mb-3">{t("modal.demo")}</h3>
                 <AspectRatio ratio={16 / 9} className="bg-muted rounded-lg overflow-hidden border">
                   <video
                     src={project.videoUrl}
@@ -122,7 +124,7 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-semibold mb-3">About the Project</h3>
+                  <h3 className="text-lg font-semibold mb-3">{t("modal.about")}</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     {project.description}
                   </p>
@@ -152,7 +154,7 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
                         onClick={() => window.open(project.githubUrl, '_blank')}
                       >
                         <Github className="h-4 w-4" />
-                        View Source Code
+                        {t("modal.viewSource")}
                       </Button>
                     </div>
                   )}
@@ -161,7 +163,7 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-semibold mb-3">Key Highlights</h3>
+                  <h3 className="text-lg font-semibold mb-3">{t("modal.highlights")}</h3>
                   <ul className="space-y-2">
                     {project.highlights.map((highlight, index) => (
                       <li key={index} className="flex items-start gap-2 text-muted-foreground">
@@ -173,7 +175,7 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-semibold mb-3">Technologies</h3>
+                  <h3 className="text-lg font-semibold mb-3">{t("modal.technologies")}</h3>
                   <div className="flex flex-wrap gap-2">
                     {project.technologies.map((tech, index) => (
                       <Badge key={index} variant="outline">

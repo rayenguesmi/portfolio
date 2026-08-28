@@ -6,17 +6,22 @@ import { Briefcase, Github } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import ProjectDetailsModal from "./ProjectDetailsModal";
 import { projects } from "@/data/portfolio";
+import { projectsFr } from "@/data/portfolio.fr";
+import { useLanguage } from "@/context/LanguageContext";
 
 const ProjectsSection = () => {
+  const { lang, t } = useLanguage();
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All");
 
   const categories = ["All", "AI", "Dev"];
 
+  const currentProjects = lang === "fr" ? projectsFr : projects;
+
   const filteredProjects = activeCategory === "All" 
-    ? projects 
-    : projects.filter(project => project.category === activeCategory);
+    ? currentProjects 
+    : currentProjects.filter(project => project.category === activeCategory);
 
   const handleProjectClick = (project: any) => {
     setSelectedProject(project);
@@ -30,27 +35,30 @@ const ProjectsSection = () => {
           <div className="text-center mb-16">
             <div className="flex items-center justify-center gap-2 text-primary mb-4">
               <Briefcase className="h-6 w-6" />
-              <span className="text-sm uppercase tracking-wide">Portfolio</span>
+              <span className="text-sm uppercase tracking-wide">{t("projects.badge")}</span>
             </div>
-            <h2 className="text-4xl font-bold mb-6">Featured Projects</h2>
+            <h2 className="text-4xl font-bold mb-6">{t("projects.title")}</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Showcasing real-world AI, automation, and full-stack projects I've developed
+              {t("projects.subtitle")}
             </p>
           </div>
         </ScrollReveal>
 
         <ScrollReveal delay={0.2}>
           <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {categories.map((category) => (
-              <Button
-                key={category}
-                variant={activeCategory === category ? "default" : "outline"}
-                onClick={() => setActiveCategory(category)}
-                className="min-w-[100px] transition-all duration-300"
-              >
-                {category}
-              </Button>
-            ))}
+            {categories.map((category) => {
+              const displayCategory = category === "All" ? t("projects.all") : category;
+              return (
+                <Button
+                  key={category}
+                  variant={activeCategory === category ? "default" : "outline"}
+                  onClick={() => setActiveCategory(category)}
+                  className="min-w-[100px] transition-all duration-300"
+                >
+                  {displayCategory}
+                </Button>
+              )
+            })}
           </div>
         </ScrollReveal>
 
@@ -81,7 +89,7 @@ const ProjectsSection = () => {
                                 e.stopPropagation(); 
                                 window.open(project.githubUrl, '_blank'); 
                               }}
-                              title="View Source Code"
+                              title={t("modal.viewSource")}
                             >
                               <Github className="h-5 w-5" />
                             </Button>
@@ -100,7 +108,7 @@ const ProjectsSection = () => {
                         variant={project.status === "Completed" ? "default" : "secondary"}
                         className="mt-2 w-fit"
                       >
-                        {project.status}
+                        {project.status === "Completed" ? t("modal.completed") : project.status}
                       </Badge>
                     </div>
                   </div>
@@ -110,7 +118,7 @@ const ProjectsSection = () => {
                   <p className="text-muted-foreground line-clamp-3">{project.description}</p>
                   
                   <div>
-                    <h4 className="font-semibold mb-2 text-foreground">Key Highlights:</h4>
+                    <h4 className="font-semibold mb-2 text-foreground">{t("projects.highlights")}</h4>
                     <ul className="space-y-1">
                       {project.highlights.slice(0, 2).map((highlight, highlightIndex) => (
                         <li key={highlightIndex} className="text-sm text-muted-foreground flex items-center gap-2">
@@ -120,14 +128,14 @@ const ProjectsSection = () => {
                       ))}
                       {project.highlights.length > 2 && (
                         <li className="text-xs text-primary mt-1 italic">
-                          + {project.highlights.length - 2} more (click to view)
+                          + {project.highlights.length - 2} {lang === 'fr' ? 'autres (cliquez pour voir)' : 'more (click to view)'}
                         </li>
                       )}
                     </ul>
                   </div>
 
                   <div>
-                    <h4 className="font-semibold mb-2 text-foreground">Technologies:</h4>
+                    <h4 className="font-semibold mb-2 text-foreground">{t("projects.technologies")}</h4>
                     <div className="flex flex-wrap gap-2">
                       {project.technologies.slice(0, 5).map((tech, techIndex) => (
                         <Badge key={techIndex} variant="outline" className="text-xs">

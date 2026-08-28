@@ -1,107 +1,127 @@
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, Calendar, Award, BookOpen } from "lucide-react";
-import { education, onlineCourses } from "@/data/portfolio";
+import { GraduationCap, Calendar, MapPin, Building2, ChevronRight } from "lucide-react";
+import { education } from "@/data/portfolio";
+import { educationFr } from "@/data/portfolio.fr";
+import { useLanguage } from "@/context/LanguageContext";
 
 const EducationSection = () => {
+  const { lang, t } = useLanguage();
+  const currentEducation = lang === "fr" ? educationFr : education;
+
   return (
-    <section id="education" className="py-24 bg-surface-dark">
-      <div className="container mx-auto px-4">
+    <section id="education" className="py-24 bg-surface-dark relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-1/2 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
+      <div className="absolute top-1/2 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl -translate-y-1/2" />
+
+      <div className="container mx-auto px-4 relative z-10">
         <ScrollReveal>
           <div className="text-center mb-16">
             <div className="flex items-center justify-center gap-2 text-primary mb-4">
               <GraduationCap className="h-6 w-6" />
-              <span className="text-sm uppercase tracking-wide">Academic Background</span>
+              <span className="text-sm uppercase tracking-wide">{t("education.badge")}</span>
             </div>
-            <h2 className="text-4xl font-bold mb-6">Education</h2>
+            <h2 className="text-4xl font-bold mb-6">{t("education.title")}</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Academic background in software engineering, AI and full-stack development
+              {t("education.subtitle")}
             </p>
           </div>
         </ScrollReveal>
 
-        <div className="space-y-8 mb-16">
-          {education.map((edu, index) => (
-            <ScrollReveal key={index} delay={index * 0.1}>
-              <Card className="bg-card border-border hover:border-primary/50 transition-all duration-300">
-                <CardHeader>
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                    <div>
-                      <CardTitle className="text-xl text-foreground">{edu.degree}</CardTitle>
-                      <p className="text-primary font-semibold">{edu.institution}</p>
-                      <p className="text-sm text-muted-foreground">{edu.location}</p>
-                    </div>
-                    <div className="flex flex-col gap-2 md:items-end">
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Calendar className="h-4 w-4" />
-                        {edu.period}
-                      </div>
-                      <Badge variant="default" className="w-fit bg-primary text-primary-foreground">
+        <div className="max-w-4xl mx-auto space-y-8">
+          {currentEducation.map((edu, index) => (
+            <ScrollReveal key={index} delay={index * 0.15}>
+              <Card className="group relative overflow-hidden bg-card/40 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300">
+                {/* Accent line */}
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-accent opacity-50 group-hover:opacity-100 transition-opacity" />
+                
+                <CardContent className="p-6 sm:p-8">
+                  <div className="flex flex-col md:flex-row gap-6">
+                    {/* Status indicator for mobile */}
+                    <div className="md:hidden">
+                      <Badge variant={edu.status === "Graduated" || edu.status === "Diplômé" ? "default" : "secondary"}>
                         {edu.status}
                       </Badge>
                     </div>
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="space-y-6">
-                  <p className="text-muted-foreground">{edu.description}</p>
-                  
-                  <div>
-                    <h4 className="font-semibold mb-3 text-foreground">Key Coursework:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {edu.coursework.map((course, courseIndex) => (
-                        <Badge key={courseIndex} variant="outline" className="text-xs">
-                          {course}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
 
-                  <div>
-                    <h4 className="font-semibold mb-3 text-foreground flex items-center gap-2">
-                      <Award className="h-4 w-4 text-primary" />
-                      Achievements:
-                    </h4>
-                    <ul className="space-y-1">
-                      {edu.achievements.map((achievement, achievementIndex) => (
-                        <li key={achievementIndex} className="text-sm text-muted-foreground flex items-center gap-2">
-                          <div className="w-1 h-1 bg-primary rounded-full" />
-                          {achievement}
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="flex-1 space-y-4">
+                      <div className="space-y-2">
+                        <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">
+                          {edu.degree}
+                        </h3>
+                        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-muted-foreground">
+                          <div className="flex items-center gap-2">
+                            <Building2 className="h-4 w-4 text-primary/70" />
+                            <span className="font-medium">{edu.institution}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <MapPin className="h-4 w-4 text-primary/70" />
+                            <span>{edu.location}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Calendar className="h-4 w-4 text-primary/70" />
+                            <span>{edu.period}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <p className="text-muted-foreground leading-relaxed">
+                        {edu.description}
+                      </p>
+
+                      <div className="grid sm:grid-cols-2 gap-6 pt-4">
+                        {edu.coursework && (
+                          <div className="space-y-3">
+                            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider flex items-center gap-2">
+                              <ChevronRight className="h-4 w-4 text-primary" />
+                              {t("education.coursework")}
+                            </h4>
+                            <div className="flex flex-wrap gap-2">
+                              {edu.coursework.map((course, i) => (
+                                <Badge key={i} variant="outline" className="bg-background/50 hover:bg-background">
+                                  {course}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
+                        {edu.achievements && (
+                          <div className="space-y-3">
+                            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider flex items-center gap-2">
+                              <ChevronRight className="h-4 w-4 text-primary" />
+                              {t("education.achievements")}
+                            </h4>
+                            <ul className="space-y-2">
+                              {edu.achievements.map((achievement, i) => (
+                                <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
+                                  <div className="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 shrink-0" />
+                                  <span>{achievement}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Status indicator for desktop */}
+                    <div className="hidden md:block shrink-0">
+                      <Badge 
+                        variant={edu.status === "Graduated" || edu.status === "Diplômé" ? "default" : "secondary"}
+                        className="shadow-sm"
+                      >
+                        {edu.status}
+                      </Badge>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
             </ScrollReveal>
           ))}
         </div>
-
-        {/* Online Courses Section */}
-        <ScrollReveal delay={0.2}>
-          <Card className="bg-card border-border">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-xl">
-                <BookOpen className="h-5 w-5 text-primary" />
-                Continuing Education
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-2 gap-4">
-                {onlineCourses.map((course, index) => (
-                  <div key={index} className="flex items-start justify-between p-3 bg-secondary/50 rounded-lg gap-4">
-                    <div className="flex-1">
-                      <p className="font-medium text-foreground">{course.name}</p>
-                      <p className="text-sm text-primary">{course.provider}</p>
-                    </div>
-                    <Badge variant="outline" className="shrink-0">{course.year}</Badge>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </ScrollReveal>
       </div>
     </section>
   );

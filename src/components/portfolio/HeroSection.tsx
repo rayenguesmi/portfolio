@@ -7,11 +7,13 @@ import ContactForm from './ContactForm';
 import CvDownloadModal from './CvDownloadModal';
 import SkillsMatrixModal from './SkillsMatrixModal';
 import PortfolioStats from './PortfolioStats';
+import { useLanguage } from "@/context/LanguageContext";
 
 const Typewriter = ({ text, speed = 80 }: { text: string; speed?: number }) => {
   const [displayText, setDisplayText] = useState('');
   useEffect(() => {
     let i = 0;
+    setDisplayText('');
     const timer = setInterval(() => {
       if (i <= text.length) { setDisplayText(text.slice(0, i)); i++; }
       else clearInterval(timer);
@@ -39,6 +41,7 @@ const socials = [
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [isContactFormOpen,  setContactFormOpen]  = useState(false);
   const [isCvModalOpen,      setCvModalOpen]      = useState(false);
   const [isSkillsMatrixOpen, setSkillsMatrixOpen] = useState(false);
@@ -96,7 +99,7 @@ const HeroSection = () => {
                 </div>
                 <div className="absolute -bottom-2 left-4 lg:left-0 bg-card/90 backdrop-blur-md border border-border rounded-xl px-3 py-2 shadow-card flex items-center gap-2 text-xs font-medium text-muted-foreground">
                   <MapPin className="w-3 h-3 text-primary" />
-                  Tunisia · Open to Work
+                  {t("hero.location")}
                 </div>
               </div>
             </ScrollReveal>
@@ -109,16 +112,16 @@ const HeroSection = () => {
                 <div className="flex items-center gap-3">
                   <div className="status-badge">
                     <span className="status-dot" />
-                    Available for work
+                    {t("hero.available")}
                   </div>
-                  <span className="text-xs text-muted-foreground">· Open to opportunities</span>
+                  <span className="text-xs text-muted-foreground">{t("hero.open")}</span>
                 </div>
 
                 {/* Headline */}
                 <div className="space-y-2">
                   <p className="flex items-center gap-2 text-xs font-mono tracking-[0.22em] uppercase text-primary/65">
                     <Terminal className="h-3.5 w-3.5" />
-                    <Typewriter text="Software Engineer | Full-Stack & AI Engineer" />
+                    <Typewriter text={t("hero.typewriter")} />
                   </p>
 
                   <h1 className="text-5xl lg:text-[3.75rem] font-extrabold leading-[1.08] tracking-tight">
@@ -130,10 +133,7 @@ const HeroSection = () => {
                   </h1>
 
                   <p className="text-[15px] text-muted-foreground max-w-[420px] leading-relaxed pt-1">
-                    I build{" "}
-                    <span className="text-primary font-medium">intelligent web applications</span>,{" "}
-                    <span className="text-primary font-medium">AI-powered solutions</span>{" "}and{" "}
-                    <span className="text-primary font-medium">scalable backend systems</span>.
+                    {t("hero.bio")}
                   </p>
                 </div>
 
@@ -163,7 +163,7 @@ const HeroSection = () => {
                     <span className="absolute inset-0 bg-gradient-to-r from-primary to-amber-400 transition-all" />
                     <span className="absolute inset-0 bg-gradient-to-r from-amber-400 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <Download className="relative h-4 w-4 transition-transform group-hover:translate-y-0.5 duration-200" />
-                    <span className="relative tracking-wide">Download CV</span>
+                    <span className="relative tracking-wide">{t("hero.downloadCV")}</span>
                   </button>
 
                   {/* Contact Me */}
@@ -172,7 +172,7 @@ const HeroSection = () => {
                     className="group flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-foreground border border-border bg-card/40 backdrop-blur-sm hover:border-primary/60 hover:text-primary hover:bg-primary/6 hover:shadow-[0_0_20px_hsl(43_75%_55%/0.12)] transition-all duration-300"
                   >
                     <Mail className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 duration-200" />
-                    Contact Me
+                    {t("hero.contactMe")}
                   </button>
 
                   {/* Skills Matrix */}
@@ -181,7 +181,7 @@ const HeroSection = () => {
                     className="group flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-foreground border border-border bg-card/40 backdrop-blur-sm hover:border-primary/60 hover:text-primary hover:bg-primary/6 hover:shadow-[0_0_20px_hsl(43_75%_55%/0.12)] transition-all duration-300"
                   >
                     <BarChart2 className="h-4 w-4 transition-transform group-hover:scale-110 duration-200" />
-                    Skills Matrix
+                    {t("hero.skillsMatrix")}
                   </button>
 
                   {/* Ask AI */}
@@ -190,7 +190,7 @@ const HeroSection = () => {
                     className="group flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-accent border border-accent/25 bg-accent/5 hover:bg-accent/12 hover:border-accent/55 hover:shadow-[0_0_20px_hsl(215_90%_62%/0.18)] transition-all duration-300"
                   >
                     <Bot className="h-4 w-4 transition-transform group-hover:rotate-12 duration-300" />
-                    Ask AI
+                    {t("hero.askAI")}
                   </button>
 
                   {/* Activity */}
@@ -199,7 +199,7 @@ const HeroSection = () => {
                     className="group flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-accent border border-accent/25 bg-accent/5 hover:bg-accent/12 hover:border-accent/55 hover:shadow-[0_0_20px_hsl(215_90%_62%/0.18)] transition-all duration-300"
                   >
                     <Github className="h-4 w-4 transition-transform group-hover:scale-110 duration-200" />
-                    Activity
+                    {t("hero.activity")}
                   </button>
                 </div>
 

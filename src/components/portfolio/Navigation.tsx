@@ -1,20 +1,22 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Shield, User, Award, Briefcase, GraduationCap, Languages, Heart } from "lucide-react";
-
-const navItems = [
-  { icon: User,          label: "About",          href: "#about",          id: "about" },
-  { icon: Award,         label: "Certifications", href: "#certifications", id: "certifications" },
-  { icon: Briefcase,     label: "Projects",       href: "#projects",       id: "projects" },
-  { icon: Briefcase,     label: "Internships",    href: "#internships",    id: "internships" },
-  { icon: GraduationCap, label: "Education",      href: "#education",      id: "education" },
-  { icon: Languages,     label: "Skills",         href: "#languages",      id: "languages" },
-  { icon: Heart,         label: "Motivation",     href: "#motivation",     id: "motivation" },
-];
+import { useLanguage } from "@/context/LanguageContext";
 
 const Navigation = () => {
+  const { lang, setLang, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
   const [scrolled, setScrolled] = useState(false);
+
+  const navItems = [
+    { icon: User,          label: t("nav.about"),          href: "#about",          id: "about" },
+    { icon: Award,         label: t("nav.certifications"), href: "#certifications", id: "certifications" },
+    { icon: Briefcase,     label: t("nav.projects"),       href: "#projects",       id: "projects" },
+    { icon: Briefcase,     label: t("nav.internships"),    href: "#internships",    id: "internships" },
+    { icon: GraduationCap, label: t("nav.education"),      href: "#education",      id: "education" },
+    { icon: Languages,     label: t("nav.skills"),         href: "#languages",      id: "languages" },
+    { icon: Heart,         label: t("nav.motivation"),     href: "#motivation",     id: "motivation" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -35,12 +37,14 @@ const Navigation = () => {
       observers.push(obs);
     });
     return () => observers.forEach(o => o.disconnect());
-  }, []);
+  }, [lang]); // re-observe when lang changes to re-read labels
 
   const scrollTo = (href: string) => {
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
     setIsOpen(false);
   };
+
+  const toggleLang = () => setLang(lang === "en" ? "fr" : "en");
 
   return (
     <nav
@@ -93,14 +97,44 @@ const Navigation = () => {
             })}
           </div>
 
-          {/* Mobile toggle */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-border hover:bg-secondary transition-colors"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+          {/* Right side: Lang toggle + Mobile button */}
+          <div className="flex items-center gap-2">
+            {/* Language pill toggle */}
+            <button
+              onClick={toggleLang}
+              title="Switch language / Changer la langue"
+              className="flex items-center gap-0 rounded-lg border border-border bg-card/40 backdrop-blur-sm overflow-hidden text-xs font-semibold transition-all duration-200 hover:border-primary/50 hover:shadow-[0_0_12px_hsl(43_75%_55%/0.15)]"
+            >
+              <span
+                className={`px-2.5 py-1.5 transition-colors duration-200 ${
+                  lang === "en"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                EN
+              </span>
+              <span className="w-px h-4 bg-border" />
+              <span
+                className={`px-2.5 py-1.5 transition-colors duration-200 ${
+                  lang === "fr"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                FR
+              </span>
+            </button>
+
+            {/* Mobile toggle */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-border hover:bg-secondary transition-colors"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile menu */}

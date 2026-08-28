@@ -1,8 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, Target, Lightbulb, Globe, Users, Zap, BookOpen, Cpu } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { useLanguage } from "@/context/LanguageContext";
 
 const MotivationSection = () => {
+  const { lang, t } = useLanguage();
   const motivations = [
     {
       icon: Cpu,
@@ -39,19 +41,22 @@ const MotivationSection = () => {
     },
     {
       icon: Zap,
-      title: "Automation First",
-      description: "My PFE project AutoTest embodies my core belief: if a task is repetitive, automate it. I look for opportunities to remove manual work and free up human potential."
-    },
-    {
-      icon: BookOpen,
-      title: "Knowledge Sharing",
-      description: "I believe in open collaboration and documentation. Good code tells a story, and good engineers make knowledge accessible to their teammates and the wider community."
+      title: lang === "fr" ? "Orientation utilisateur" : "User-Centric",
+      description: lang === "fr" ? "Construire des solutions qui résolvent de vrais problèmes." : "Building solutions that solve real problems."
     }
   ];
 
   const personalStory = {
-    title: "My Journey Into Software Engineering & AI",
-    content: `My passion for software engineering started during my preparatory studies in Mathematics and Physics at FSM Monastir. It was there that I realized I didn't just want to understand how systems worked — I wanted to build them.
+    title: t("motivation.story.title"),
+    content: lang === "fr" 
+      ? `Ma passion pour le génie logiciel a commencé pendant mes études préparatoires en mathématiques et physique à la FSM Monastir. C'est là que j'ai réalisé que je ne voulais pas seulement comprendre comment les systèmes fonctionnaient — je voulais les construire.
+
+Intégrer le cycle d'ingénieur de l'ESPRIT m'a donné les bases pour transformer cette ambition en réalité. À travers des projets allant des applications web full-stack aux pipelines de tests basés sur l'IA, j'ai découvert mon véritable intérêt : l'intersection de l'automatisation intelligente, du DevOps et de l'architecture logicielle moderne.
+
+Mon projet de fin d'études a cristallisé cette passion. Construire un pipeline intelligent qui prend de simples spécifications Markdown et génère, exécute et rapporte automatiquement des tests Selenium m'a semblé être l'avenir de la qualité logicielle. Ce projet m'a appris que les outils les plus impactants sont ceux qui rendent les autres ingénieurs plus productifs.
+
+En tant qu'Ingénieur Logiciel, j'applique cet état d'esprit à tout ce que je construis — que ce soit l'intégration de Keycloak pour le SSO d'entreprise, la conception d'APIs REST scalables, l'implémentation de pipelines basés sur les LLMs ou le déploiement de services avec Docker et CI/CD. Je suis là pour construire des logiciels qui ont de l'importance.`
+      : `My passion for software engineering started during my preparatory studies in Mathematics and Physics at FSM Monastir. It was there that I realized I didn't just want to understand how systems worked — I wanted to build them.
 
 Joining ESPRIT's engineering program gave me the foundation to turn that ambition into reality. Through projects ranging from full-stack web applications to AI-powered testing pipelines, I discovered my true interest: the intersection of intelligent automation, DevOps, and modern software architecture.
 
@@ -60,7 +65,6 @@ My final-year project crystallized this passion. Building an intelligent pipelin
 As a Software Engineer, I bring this mindset to everything I build — whether it's integrating Keycloak for enterprise SSO, designing scalable REST APIs, implementing LLM-powered pipelines, or shipping services with Docker and CI/CD. I am here to build software that matters.`
   };
 
-
   return (
     <section id="motivation" className="py-24 bg-surface-dark">
       <div className="container mx-auto px-4">
@@ -68,11 +72,11 @@ As a Software Engineer, I bring this mindset to everything I build — whether i
           <div className="text-center mb-16">
             <div className="flex items-center justify-center gap-2 text-primary mb-4">
               <Heart className="h-6 w-6" />
-              <span className="text-sm uppercase tracking-wide">What Drives Me</span>
+              <span className="text-sm uppercase tracking-wide">{t("motivation.badge")}</span>
             </div>
-            <h2 className="text-4xl font-bold mb-6">Motivation & Values</h2>
+            <h2 className="text-4xl font-bold mb-6">{t("motivation.title")}</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              The passion and principles that guide my engineering journey
+              {t("motivation.subtitle")}
             </p>
           </div>
         </ScrollReveal>

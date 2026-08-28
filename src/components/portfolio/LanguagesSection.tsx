@@ -1,8 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Languages } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { useLanguage } from "@/context/LanguageContext";
 
 const LanguagesSection = () => {
+  const { t } = useLanguage();
   const skills = [
     "Python", "Java", "PHP", "C",
     "Angular", "React", "Flutter", "TypeScript",
@@ -21,11 +23,11 @@ const LanguagesSection = () => {
           <div className="text-center mb-16">
             <div className="flex items-center justify-center gap-2 text-primary mb-4">
               <Languages className="h-6 w-6" />
-              <span className="text-sm uppercase tracking-wide">Technical Skills</span>
+              <span className="text-sm uppercase tracking-wide">{t("skills.badge")}</span>
             </div>
-            <h2 className="text-4xl font-bold mb-6">Skills & Tools</h2>
+            <h2 className="text-4xl font-bold mb-6">{t("skills.title")}</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Technologies and tools I use to build intelligent and efficient systems
+              {t("skills.subtitle")}
             </p>
           </div>
         </ScrollReveal>

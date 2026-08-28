@@ -30,8 +30,9 @@ export interface Project {
   technologies: string[];
   highlights: string[];
   status: string;
-  images?: string[]; // New field for photos
-  githubUrl?: string; // New field for GitHub URL
+  images?: string[];
+  videoUrl?: string; // Optional demo video path (relative to public/)
+  githubUrl?: string;
 }
 
 interface ProjectDetailsModalProps {
@@ -43,14 +44,12 @@ interface ProjectDetailsModalProps {
 const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalProps) => {
   if (!project) return null;
 
-  // Default placeholder images if none provided
-  const images = project.images && project.images.length > 0 
-    ? project.images 
-    : [
-        "/placeholder.svg",
-        "/placeholder.svg",
-        "/placeholder.svg"
-      ];
+  // Determine what media to show:
+  // 1. If videoUrl is set → show video player
+  // 2. If real images → show image carousel
+  // 3. Otherwise → skip media section (no placeholder)
+  const hasVideo = !!project.videoUrl;
+  const hasRealImages = project.images && project.images.length > 0;
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
@@ -66,7 +65,7 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
                 {project.category}
               </DialogDescription>
             </div>
-            <Badge 
+            <Badge
               variant={project.status === "Completed" ? "default" : "secondary"}
               className="shrink-0"
             >
@@ -77,28 +76,47 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
 
         <ScrollArea className="flex-1 p-6 pt-0">
           <div className="space-y-8">
-            {/* Image Carousel */}
-            <div className="w-full px-12">
-              <Carousel className="w-full max-w-2xl mx-auto">
-                <CarouselContent>
-                  {images.map((img, index) => (
-                    <CarouselItem key={index}>
-                      <div className="p-1">
-                        <AspectRatio ratio={16 / 9} className="bg-muted rounded-lg overflow-hidden border">
-                          <img 
-                            src={img} 
-                            alt={`${project.title} screenshot ${index + 1}`} 
-                            className="object-cover w-full h-full"
-                          />
-                        </AspectRatio>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
-              </Carousel>
-            </div>
+            {/* Video Player */}
+            {hasVideo && (
+              <div className="w-full">
+                <h3 className="text-lg font-semibold mb-3">Demo</h3>
+                <AspectRatio ratio={16 / 9} className="bg-muted rounded-lg overflow-hidden border">
+                  <video
+                    src={project.videoUrl}
+                    controls
+                    muted
+                    playsInline
+                    preload="metadata"
+                    style={{ maxWidth: "100%", height: "100%", width: "100%", objectFit: "contain" }}
+                  />
+                </AspectRatio>
+              </div>
+            )}
+
+            {/* Image Carousel (only when real images exist and no video) */}
+            {!hasVideo && hasRealImages && (
+              <div className="w-full px-12">
+                <Carousel className="w-full max-w-2xl mx-auto">
+                  <CarouselContent>
+                    {project.images!.map((img, index) => (
+                      <CarouselItem key={index}>
+                        <div className="p-1">
+                          <AspectRatio ratio={16 / 9} className="bg-muted rounded-lg overflow-hidden border">
+                            <img
+                              src={img}
+                              alt={`${project.title} screenshot ${index + 1}`}
+                              className="object-cover w-full h-full"
+                            />
+                          </AspectRatio>
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious />
+                  <CarouselNext />
+                </Carousel>
+              </div>
+            )}
 
             {/* Project Details */}
             <div className="grid md:grid-cols-2 gap-8">
@@ -127,7 +145,12 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
                   )}
                   {project.githubUrl && (
                     <div className="pt-2">
-                      <Button variant="outline" size="sm" className="gap-2" onClick={() => window.open(project.githubUrl, '_blank')}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-2"
+                        onClick={() => window.open(project.githubUrl, '_blank')}
+                      >
                         <Github className="h-4 w-4" />
                         View Source Code
                       </Button>

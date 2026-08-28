@@ -53,12 +53,13 @@ const MotivationSection = () => {
     title: "My Journey Into Software Engineering & AI",
     content: `My passion for software engineering started during my preparatory studies in Mathematics and Physics at FSM Monastir. It was there that I realized I didn't just want to understand how systems worked — I wanted to build them.
 
-Joining ESPRIT's engineering program gave me the foundation to turn that ambition into reality. Through projects ranging from full-stack web apps to AI-powered testing pipelines, I discovered my true interest: the intersection of intelligent automation, DevOps, and modern software architecture.
+Joining ESPRIT's engineering program gave me the foundation to turn that ambition into reality. Through projects ranging from full-stack web applications to AI-powered testing pipelines, I discovered my true interest: the intersection of intelligent automation, DevOps, and modern software architecture.
 
-My final-year project, AutoTest, crystallized this passion. The idea of writing Markdown specs and having an LLM-driven pipeline automatically generate, execute, and report on Selenium tests felt like the future of software quality. That project taught me that the most impactful tools are the ones that make other engineers more productive.
+My final-year project crystallized this passion. Building an intelligent pipeline that takes plain Markdown specifications and automatically generates, executes, and reports on Selenium tests felt like the future of software quality engineering. That project taught me that the most impactful tools are the ones that make other engineers more productive.
 
-Today, I bring this mindset to everything I build — whether it's integrating Keycloak for enterprise SSO, designing REST APIs, or training deep learning models. I'm here to build systems that matter.`
+As a Software Engineer, I bring this mindset to everything I build — whether it's integrating Keycloak for enterprise SSO, designing scalable REST APIs, implementing LLM-powered pipelines, or shipping services with Docker and CI/CD. I am here to build software that matters.`
   };
+
 
   return (
     <section id="motivation" className="py-24 bg-surface-dark">

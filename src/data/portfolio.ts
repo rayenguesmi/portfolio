@@ -7,22 +7,22 @@ export const onlineCourses: { name: string; provider: string; year: string }[] =
 
 export const education = [
   {
-    degree: "Engineering Program in Software Engineering",
+    degree: "Engineering Degree in Software Engineering",
     institution: "ESPRIT – Private Higher School of Engineering and Technology",
     location: "Tunis, Tunisia",
-    period: "Sept 2023 – Dec 2025",
-    status: "In Progress",
-    description: "Final-year software engineering student focused on AI, automation, DevOps, and full-stack web development. Building intelligent and efficient systems that enhance business performance.",
+    period: "Sept 2022 – June 2025",
+    status: "Graduated",
+    description: "Software Engineering graduate with a focus on AI, automation, DevOps, and full-stack web development. Built intelligent and scalable systems combining strong software engineering practices with Artificial Intelligence.",
     coursework: ["Software Architecture", "AI & Machine Learning", "DevOps", "Web Development", "Database Systems", "Agile/Scrum"],
-    achievements: ["PFE Project: AutoTest – AI-Powered Automated Testing Platform", "Multiple internships in web development and AI integration", "ISO 9001 quality management project"]
+    achievements: ["PFE Project: AutoTest – AI-Powered Automated Testing Platform", "Multiple internships in web development and AI integration", "NVIDIA Deep Learning Certifications"]
   },
   {
     degree: "Preparatory Program – Mathematics and Physics",
     institution: "FSM Monastir University",
     location: "Monastir, Tunisia",
-    period: "Sept 2020 – June 2023",
+    period: "Sept 2020 – June 2022",
     status: "Graduated",
-    description: "Rigorous preparatory program in mathematics and physics preparing for engineering school entrance.",
+    description: "Rigorous preparatory program in mathematics and physics, building strong STEM foundations before admission to engineering school.",
     coursework: ["Mathematics", "Physics", "Computer Science Fundamentals", "Engineering Principles", "Problem Solving"],
     achievements: ["Strong STEM foundation", "Admitted to ESPRIT engineering program"]
   }
@@ -30,23 +30,25 @@ export const education = [
 
 export const projects: Project[] = [
   {
-    title: "AutoTest – AI-Powered Automated Testing Platform",
-    company: "PFE – ESPRIT",
+    title: "AI-Powered End-to-End Test Automation Platform",
+    company: "PFE – Tunisie Telecom",
     period: "2025",
     location: "Tunis, Tunisia",
-    description: "An intelligent end-to-end test automation pipeline that generates and executes Selenium test scripts automatically from plain Markdown specifications using LLMs. Users write specs in Markdown → LLM #1 (SpecParser) converts them into structured JSON → LLM #2 (TestCaseGenerator) generates positive, negative & edge case test cases → DOMScanner scans the real website with headless Chrome to extract true CSS selectors → SeleniumGenerator produces ready-to-run pytest scripts → TestRunner executes tests and captures JUnit XML results → ReportGenerator produces a full HTML + JSON report with pass/fail per feature. React frontend polls results every 2s via Node.js webhook and MongoDB.",
+    description: "An intelligent end-to-end test automation pipeline that generates and executes Selenium test scripts automatically from Markdown specifications using Large Language Models. The pipeline parses Markdown specs → LLM generates structured test cases (positive, negative & edge cases) → DOM Scanner analyzes the live website with headless Chrome to extract real CSS selectors → Selenium scripts are generated and executed by Pytest → automated HTML/JSON reports are produced with feature-level pass/fail status. A React frontend polls real-time results via a Node.js webhook backed by MongoDB.",
     icon: Bot,
     category: "AI",
-    technologies: ["Python", "FastAPI", "React", "Node.js", "MongoDB", "Selenium", "pytest", "LangChain", "Groq API", "Ollama", "Jinja2", "Docker"],
+    technologies: ["Python", "FastAPI", "LLM", "Groq", "Ollama", "Selenium", "Pytest", "React", "MongoDB", "Node.js", "Docker", "GitHub Actions"],
     highlights: [
-      "Multi-LLM support: Groq (llama-3.3-70b), Ollama (qwen2.5-coder), OpenAI, Anthropic",
-      "Automatic DOM analysis with Selenium headless Chrome",
-      "Zero-manual-code test generation from Markdown specs",
-      "Full pipeline orchestration via FastAPI",
-      "Professional HTML reports with feature-level pass/fail status"
+      "Zero-manual-code test generation from plain Markdown specifications",
+      "Multi-LLM support: Groq (llama-3.3-70b), Ollama (qwen2.5-coder)",
+      "Automatic DOM analysis using headless Chrome to extract live CSS selectors",
+      "Full pipeline orchestration via FastAPI with Pytest execution",
+      "Professional HTML + JSON reports with feature-level pass/fail status",
+      "React frontend with real-time result polling via Node.js webhook and MongoDB"
     ],
     status: "Completed",
     images: [],
+    videoUrl: "/videos/autotest-demo.mp4",
     githubUrl: "https://github.com/rayenguesmi"
   },
   {
@@ -54,11 +56,17 @@ export const projects: Project[] = [
     company: "Academic Project",
     period: "Feb – May 2025",
     location: "Tunis, Tunisia",
-    description: "A platform for companies to manage tasks, projects, goals, and teams. Features JWT authentication, REST API, and PDF report generation for enterprise use.",
+    description: "A full-stack enterprise platform for managing tasks, projects, goals, and teams. Designed for organizations that need structured project tracking with secure access, real-time updates, and exportable reporting. Built a REST API backend with Spring Boot and an Angular SPA frontend, secured with JWT authentication and supporting PDF report generation using iTextPDF.",
     icon: Briefcase,
     category: "Dev",
     technologies: ["Spring Boot", "Angular", "MySQL", "REST API", "JWT Auth", "Bootstrap", "iTextPDF"],
-    highlights: ["Task and project management for teams", "JWT authentication", "PDF report export"],
+    highlights: [
+      "Task, project and goal management for enterprise teams",
+      "JWT-based authentication and authorization",
+      "PDF report export with iTextPDF for project summaries",
+      "RESTful API with full CRUD operations",
+      "Responsive Angular SPA with Bootstrap"
+    ],
     status: "Completed",
     images: [],
     githubUrl: "https://github.com/rayenguesmi"
@@ -68,11 +76,16 @@ export const projects: Project[] = [
     company: "Academic Project",
     period: "May – Jul 2025",
     location: "Tunis, Tunisia",
-    description: "Web platform for student room reservations, request handling, and monitoring in university dormitories. Secure access with Spring Security.",
+    description: "A web platform for managing student room reservations, administrative requests, and dormitory monitoring in a university environment. Implemented role-based access control using Spring Security, enabling separate student and administrator workflows with secure authentication.",
     icon: Briefcase,
     category: "Dev",
     technologies: ["Spring Boot", "Thymeleaf", "MySQL", "Spring Security", "Bootstrap"],
-    highlights: ["Room reservation system", "Request handling & monitoring", "Spring Security access control"],
+    highlights: [
+      "Student room reservation system with availability tracking",
+      "Request handling and status monitoring for administrators",
+      "Role-based access control with Spring Security",
+      "Server-side rendering with Thymeleaf templates"
+    ],
     status: "Completed",
     images: [],
     githubUrl: "https://github.com/rayenguesmi"
@@ -82,11 +95,16 @@ export const projects: Project[] = [
     company: "Academic Project",
     period: "Oct – Dec 2024",
     location: "Tunis, Tunisia",
-    description: "Personalized fitness application for coaches offering customized workout plans, nutrition tracking, and a supplement store. Built with Symfony.",
+    description: "A personalized fitness application for coaches to deliver customized workout plans, nutrition tracking, and manage a supplement store. Built with Symfony using the MVC architecture, providing a clear separation between coach and client interfaces.",
     icon: Headphones,
     category: "Dev",
     technologies: ["Symfony", "Twig", "MySQL", "Bootstrap"],
-    highlights: ["Personalized workout & nutrition plans", "Supplement store integration", "Coach-client management"],
+    highlights: [
+      "Personalized workout and nutrition plan management per client",
+      "Integrated supplement store with product catalog",
+      "Coach-client management with separate dashboards",
+      "MVC architecture with Symfony and Twig templating"
+    ],
     status: "Completed",
     images: [],
     githubUrl: "https://github.com/rayenguesmi"
@@ -96,11 +114,16 @@ export const projects: Project[] = [
     company: "Neolians",
     period: "Jun – Aug 2025",
     location: "Tunis, Tunisia",
-    description: "AI-powered professional web application with Keycloak SSO/OAuth2 authentication. Integrated AI modules for data analysis and automation into an enterprise platform.",
+    description: "Developed full-stack features and integrated AI modules into the Neo TM enterprise application. Implemented Keycloak Single Sign-On (SSO) and OAuth2 authentication for secure enterprise access. Integrated AI-driven data analysis and process automation modules into an existing Spring Boot / Angular platform.",
     icon: Bot,
     category: "AI",
     technologies: ["Java", "Spring Boot", "Angular", "Python", "Keycloak", "AI"],
-    highlights: ["Keycloak SSO/OAuth2 authentication", "AI data analysis modules", "Full-stack enterprise integration"],
+    highlights: [
+      "Keycloak SSO/OAuth2 integration for enterprise authentication",
+      "AI data analysis and automation modules",
+      "Full-stack development: Spring Boot backend + Angular frontend",
+      "Enterprise-grade security with role-based access control"
+    ],
     status: "Completed",
     images: []
   }
@@ -109,13 +132,13 @@ export const projects: Project[] = [
 export const internships: Internship[] = [
   {
     company: "Tunisie Telecom",
-    role: "PFE – AUTOTEST: AI-POWERED AUTOMATED TESTING PLATFORM",
+    role: "PFE – AI-POWERED END-TO-END TEST AUTOMATION PLATFORM",
     period: "2025",
     location: "Tunis, Tunisia",
-    description: "Final-year engineering project (PFE). Built an intelligent end-to-end test automation pipeline that generates and executes Selenium test scripts automatically from plain Markdown specifications using LLMs. The pipeline parses specs, generates test cases, scans the DOM with headless Chrome, generates pytest scripts, executes them, and produces full HTML/JSON reports. React frontend polls results in real time via Node.js webhook and MongoDB.",
+    description: "Designed and built an intelligent end-to-end test automation pipeline that generates and executes Selenium test scripts automatically from Markdown specifications using Large Language Models. The platform parses specs, generates structured test cases, scans the DOM with headless Chrome, produces pytest scripts, executes them, and generates full HTML/JSON reports. A React frontend polls real-time results via a Node.js webhook backed by MongoDB.",
     logoUrl: "/images-removebg-preview (1).png",
     companyUrl: "",
-    technologies: ["Python", "FastAPI", "React", "Node.js", "MongoDB", "Selenium", "pytest", "LangChain", "Groq API", "Ollama", "Docker"],
+    technologies: ["Python", "FastAPI", "React", "Node.js", "MongoDB", "Selenium", "Pytest", "Groq", "Ollama", "Docker", "GitHub Actions"],
     certificateUrl: ""
   },
   {

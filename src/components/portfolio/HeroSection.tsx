@@ -22,12 +22,12 @@ const Typewriter = ({ text, speed = 80 }: { text: string; speed?: number }) => {
 };
 
 const techStack = [
-  { label: "Python",     color: "text-yellow-400  border-yellow-400/30  bg-yellow-400/8"  },
-  { label: "React",      color: "text-cyan-400    border-cyan-400/30    bg-cyan-400/8"    },
-  { label: "Docker",     color: "text-blue-400    border-blue-400/30    bg-blue-400/8"    },
-  { label: "Node.js",    color: "text-green-400   border-green-400/30   bg-green-400/8"   },
-  { label: "TypeScript", color: "text-sky-400     border-sky-400/30     bg-sky-400/8"     },
-  { label: "Kubernetes", color: "text-primary     border-primary/30     bg-primary/8"     },
+  { label: "Python",    color: "text-yellow-400  border-yellow-400/30  bg-yellow-400/8"  },
+  { label: "FastAPI",   color: "text-green-400   border-green-400/30   bg-green-400/8"   },
+  { label: "React",     color: "text-cyan-400    border-cyan-400/30    bg-cyan-400/8"    },
+  { label: "Docker",    color: "text-blue-400    border-blue-400/30    bg-blue-400/8"    },
+  { label: "LLM",       color: "text-primary     border-primary/30     bg-primary/8"     },
+  { label: "CI/CD",     color: "text-sky-400     border-sky-400/30     bg-sky-400/8"     },
 ];
 
 const socials = [
@@ -96,7 +96,7 @@ const HeroSection = () => {
                 </div>
                 <div className="absolute -bottom-2 left-4 lg:left-0 bg-card/90 backdrop-blur-md border border-border rounded-xl px-3 py-2 shadow-card flex items-center gap-2 text-xs font-medium text-muted-foreground">
                   <MapPin className="w-3 h-3 text-primary" />
-                  Tunisia · ESPRIT
+                  Tunisia · Open to Work
                 </div>
               </div>
             </ScrollReveal>
@@ -118,7 +118,7 @@ const HeroSection = () => {
                 <div className="space-y-2">
                   <p className="flex items-center gap-2 text-xs font-mono tracking-[0.22em] uppercase text-primary/65">
                     <Terminal className="h-3.5 w-3.5" />
-                    <Typewriter text="Software Engineering Student" />
+                    <Typewriter text="Software Engineer | Full-Stack & AI Engineer" />
                   </p>
 
                   <h1 className="text-5xl lg:text-[3.75rem] font-extrabold leading-[1.08] tracking-tight">
@@ -130,12 +130,10 @@ const HeroSection = () => {
                   </h1>
 
                   <p className="text-[15px] text-muted-foreground max-w-[420px] leading-relaxed pt-1">
-                    Final-year Software Engineering student at{" "}
-                    <span className="text-foreground font-semibold">ESPRIT</span>, passionate about{" "}
-                    <span className="text-primary font-medium">AI</span>,{" "}
-                    <span className="text-primary font-medium">automation</span>, and{" "}
-                    <span className="text-primary font-medium">DevOps</span>.
-                    I build intelligent systems that enhance business performance.
+                    I build{" "}
+                    <span className="text-primary font-medium">intelligent web applications</span>,{" "}
+                    <span className="text-primary font-medium">AI-powered solutions</span>{" "}and{" "}
+                    <span className="text-primary font-medium">scalable backend systems</span>.
                   </p>
                 </div>
 

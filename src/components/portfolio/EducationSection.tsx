@@ -16,7 +16,7 @@ const EducationSection = () => {
             </div>
             <h2 className="text-4xl font-bold mb-6">Education</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Continuous learning and academic excellence in cybersecurity and computer science
+              Academic background in software engineering, AI and full-stack development
             </p>
           </div>
         </ScrollReveal>

@@ -1,15 +1,27 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  Award, ExternalLink, Calendar, CheckCircle, Eye,
-  Cpu, Code, Cloud, Server, Database, Flag, Blocks
+  Award,
+  ExternalLink,
+  Calendar,
+  CheckCircle,
+  Eye,
+  Cpu,
+  Code,
+  Cloud,
+  Server,
+  Database,
+  Flag,
+  Blocks,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import CertificationDetailsModal, { Certification } from "./CertificationDetailsModal";
+import type { Certification } from "./CertificationDetailsModal";
 import { useLanguage } from "@/context/LanguageContext";
+
+const CertificationDetailsModal = lazy(() => import("./CertificationDetailsModal"));
 
 const CertificationsSection = () => {
   const { lang, t } = useLanguage();
@@ -25,11 +37,12 @@ const CertificationsSection = () => {
       status: lang === "fr" ? "Actif" : "Active",
       credentialId: "c28b776263b64bc2aab8bbef70b69472",
       url: "https://courses.nvidia.com/certificates/c28b776263b64bc2aab8bbef70b69472/",
-      description: lang === "fr" 
-        ? "Apprentissage des techniques avancées de génération augmentée par la récupération (RAG) avec des LLM."
-        : "Learned advanced Retrieval-Augmented Generation (RAG) techniques with LLMs.",
+      description:
+        lang === "fr"
+          ? "Apprentissage des techniques avancées de génération augmentée par la récupération (RAG) avec des LLM."
+          : "Learned advanced Retrieval-Augmented Generation (RAG) techniques with LLMs.",
       skills: ["LLMs", "RAG", "LangChain", "Vector Databases", "Python"],
-      certificateImage: "/WhatsApp Image 2024-09-02 at 01.40.48_bfa855c3.jpg"
+      certificateImage: "/WhatsApp Image 2024-09-02 at 01.40.48_bfa855c3.jpg",
     },
     {
       name: "Building Video AI Applications at the Edge on Jetson Nano",
@@ -39,11 +52,12 @@ const CertificationsSection = () => {
       status: lang === "fr" ? "Actif" : "Active",
       credentialId: "bb71e0653d104ddfa0c4270b24dc6c96",
       url: "https://courses.nvidia.com/certificates/bb71e0653d104ddfa0c4270b24dc6c96/",
-      description: lang === "fr" 
-        ? "Développement d'applications d'IA vidéo à la périphérie à l'aide de Jetson Nano."
-        : "Developing video AI applications at the edge using Jetson Nano.",
+      description:
+        lang === "fr"
+          ? "Développement d'applications d'IA vidéo à la périphérie à l'aide de Jetson Nano."
+          : "Developing video AI applications at the edge using Jetson Nano.",
       skills: ["Computer Vision", "Edge AI", "Jetson Nano", "TensorRT", "Python"],
-      certificateImage: "/Screenshot 2024-06-25 093010.png"
+      certificateImage: "/Screenshot 2024-06-25 093010.png",
     },
     {
       name: "Getting Started with Deep Learning",
@@ -53,11 +67,12 @@ const CertificationsSection = () => {
       status: lang === "fr" ? "Actif" : "Active",
       credentialId: "e909a7b9739546d1bf1e2f5b828efeb6",
       url: "https://courses.nvidia.com/certificates/e909a7b9739546d1bf1e2f5b828efeb6/",
-      description: lang === "fr" 
-        ? "Introduction aux concepts fondamentaux de l'apprentissage profond."
-        : "Introduction to fundamental deep learning concepts.",
+      description:
+        lang === "fr"
+          ? "Introduction aux concepts fondamentaux de l'apprentissage profond."
+          : "Introduction to fundamental deep learning concepts.",
       skills: ["Deep Learning", "Neural Networks", "TensorFlow", "Keras", "Python"],
-      certificateImage: "/Screenshot 2024-06-25 093121.png"
+      certificateImage: "/Screenshot 2024-06-25 093121.png",
     },
     {
       name: "Scientific Computing with Python",
@@ -67,12 +82,13 @@ const CertificationsSection = () => {
       status: lang === "fr" ? "Actif" : "Active",
       credentialId: "fccf89bf907-9204-49fc-af0d-c0451e5e40ee",
       url: "https://freecodecamp.org/certification/fccf89bf907-9204-49fc-af0d-c0451e5e40ee/scientific-computing-with-python-v7",
-      description: lang === "fr" 
-        ? "Programmation Python avec des structures de données avancées, l'analyse de données et le calcul scientifique."
-        : "Python programming focusing on advanced data structures, data analysis, and scientific computing.",
+      description:
+        lang === "fr"
+          ? "Programmation Python avec des structures de données avancées, l'analyse de données et le calcul scientifique."
+          : "Python programming focusing on advanced data structures, data analysis, and scientific computing.",
       skills: ["Python", "Data Analysis", "Algorithms", "Data Structures"],
-      certificateImage: "/free.jpg"
-    }
+      certificateImage: "/free.jpg",
+    },
   ];
 
   const handleOpenModal = (cert: Certification) => {
@@ -106,9 +122,7 @@ const CertificationsSection = () => {
               <span className="text-sm uppercase tracking-wide">{t("certs.badge")}</span>
             </div>
             <h2 className="text-4xl font-bold mb-6">{t("certs.title")}</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              {t("certs.subtitle")}
-            </p>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">{t("certs.subtitle")}</p>
           </div>
         </ScrollReveal>
 
@@ -119,14 +133,14 @@ const CertificationsSection = () => {
                 {categories.map((category) => {
                   const displayCategory = category === "All" ? t("projects.all") : category;
                   return (
-                    <TabsTrigger 
-                      key={category} 
+                    <TabsTrigger
+                      key={category}
                       value={category}
                       className="px-6 py-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all"
                     >
                       {displayCategory}
                     </TabsTrigger>
-                  )
+                  );
                 })}
               </TabsList>
             </div>
@@ -136,7 +150,7 @@ const CertificationsSection = () => {
             <TabsContent key={category} value={category} className="mt-0">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {certifications
-                  .filter(cert => category === "All" || cert.category === category)
+                  .filter((cert) => category === "All" || cert.category === category)
                   .map((cert, index) => (
                     <ScrollReveal key={index} delay={index * 0.1}>
                       <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow flex flex-col h-full">
@@ -147,8 +161,12 @@ const CertificationsSection = () => {
                                 {cert.name}
                               </CardTitle>
                               <div className="flex flex-col items-end gap-2">
-                                <Badge 
-                                  variant={cert.status === "Active" || cert.status === "Actif" ? "default" : "secondary"}
+                                <Badge
+                                  variant={
+                                    cert.status === "Active" || cert.status === "Actif"
+                                      ? "default"
+                                      : "secondary"
+                                  }
                                   className={`shrink-0 ${cert.status === "Active" || cert.status === "Actif" ? "bg-primary text-primary-foreground" : ""}`}
                                 >
                                   <CheckCircle className="h-3 w-3 mr-1" />
@@ -159,9 +177,9 @@ const CertificationsSection = () => {
                             <div className="flex items-center gap-2 text-primary font-semibold text-sm">
                               <div className="p-1 bg-primary/10 rounded-md h-8 w-8 flex items-center justify-center shrink-0">
                                 {cert.issuerLogoUrl ? (
-                                  <img 
-                                    src={cert.issuerLogoUrl} 
-                                    alt={cert.issuer} 
+                                  <img
+                                    src={cert.issuerLogoUrl}
+                                    alt={cert.issuer}
                                     className="max-h-full max-w-full object-contain"
                                   />
                                 ) : (
@@ -172,10 +190,12 @@ const CertificationsSection = () => {
                             </div>
                           </div>
                         </CardHeader>
-                        
+
                         <CardContent className="space-y-4 flex-1 flex flex-col">
-                          <p className="text-muted-foreground text-sm line-clamp-3 flex-1">{cert.description}</p>
-                          
+                          <p className="text-muted-foreground text-sm line-clamp-3 flex-1">
+                            {cert.description}
+                          </p>
+
                           <div className="flex items-center gap-4 text-xs text-muted-foreground">
                             <div className="flex items-center gap-1">
                               <Calendar className="h-3 w-3" />
@@ -200,16 +220,21 @@ const CertificationsSection = () => {
                           </div>
 
                           <div className="pt-2 mt-auto grid grid-cols-2 gap-2">
-                            <Button 
-                              variant="ghost" 
-                              size="sm" 
+                            <Button
+                              variant="ghost"
+                              size="sm"
                               className="w-full"
                               onClick={() => handleOpenModal(cert)}
                             >
                               <Eye className="h-4 w-4 mr-2" />
                               {t("modal.viewDetails")}
                             </Button>
-                            <a href={cert.url} target="_blank" rel="noopener noreferrer" className="w-full">
+                            <a
+                              href={cert.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-full"
+                            >
                               <Button variant="outline" size="sm" className="w-full group">
                                 <ExternalLink className="h-4 w-4 mr-2" />
                                 {t("certs.verify")}
@@ -225,12 +250,16 @@ const CertificationsSection = () => {
           ))}
         </Tabs>
       </div>
-      
-      <CertificationDetailsModal 
-        certification={selectedCert} 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-      />
+
+      {isModalOpen && (
+        <Suspense fallback={null}>
+          <CertificationDetailsModal
+            certification={selectedCert}
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
+        </Suspense>
+      )}
     </section>
   );
 };

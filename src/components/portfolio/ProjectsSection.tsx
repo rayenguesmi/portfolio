@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Briefcase, Github } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import ProjectDetailsModal, { Project } from "./ProjectDetailsModal";
+import type { Project } from "./ProjectDetailsModal";
 import { projects } from "@/data/portfolio";
 import { projectsFr } from "@/data/portfolio.fr";
 import { useLanguage } from "@/context/LanguageContext";
+
+const ProjectDetailsModal = lazy(() => import("./ProjectDetailsModal"));
 
 const ProjectsSection = () => {
   const { lang, t } = useLanguage();
@@ -19,9 +21,10 @@ const ProjectsSection = () => {
 
   const currentProjects = lang === "fr" ? projectsFr : projects;
 
-  const filteredProjects = activeCategory === "All" 
-    ? currentProjects 
-    : currentProjects.filter(project => project.category === activeCategory);
+  const filteredProjects =
+    activeCategory === "All"
+      ? currentProjects
+      : currentProjects.filter((project) => project.category === activeCategory);
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
@@ -57,7 +60,7 @@ const ProjectsSection = () => {
                 >
                   {displayCategory}
                 </Button>
-              )
+              );
             })}
           </div>
         </ScrollReveal>
@@ -65,7 +68,7 @@ const ProjectsSection = () => {
         <div className="grid lg:grid-cols-2 gap-8">
           {filteredProjects.map((project, index) => (
             <ScrollReveal key={index} delay={index * 0.1}>
-              <Card 
+              <Card
                 className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow cursor-pointer hover:scale-[1.02] active:scale-[0.98] h-full"
                 onClick={() => handleProjectClick(project)}
               >
@@ -81,13 +84,13 @@ const ProjectsSection = () => {
                         </CardTitle>
                         <div className="flex items-center gap-2">
                           {project.githubUrl && (
-                            <Button 
-                              variant="ghost" 
-                              size="icon" 
-                              className="h-8 w-8 text-muted-foreground hover:text-primary" 
-                              onClick={(e) => { 
-                                e.stopPropagation(); 
-                                window.open(project.githubUrl, '_blank'); 
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-8 w-8 text-muted-foreground hover:text-primary"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(project.githubUrl, "_blank");
                               }}
                               title={t("modal.viewSource")}
                             >
@@ -104,7 +107,7 @@ const ProjectsSection = () => {
                         <p>{project.period}</p>
                         {project.location && <p>{project.location}</p>}
                       </div>
-                      <Badge 
+                      <Badge
                         variant={project.status === "Completed" ? "default" : "secondary"}
                         className="mt-2 w-fit"
                       >
@@ -113,29 +116,37 @@ const ProjectsSection = () => {
                     </div>
                   </div>
                 </CardHeader>
-                
+
                 <CardContent className="space-y-6">
                   <p className="text-muted-foreground line-clamp-3">{project.description}</p>
-                  
+
                   <div>
-                    <h4 className="font-semibold mb-2 text-foreground">{t("projects.highlights")}</h4>
+                    <h4 className="font-semibold mb-2 text-foreground">
+                      {t("projects.highlights")}
+                    </h4>
                     <ul className="space-y-1">
                       {project.highlights.slice(0, 2).map((highlight, highlightIndex) => (
-                        <li key={highlightIndex} className="text-sm text-muted-foreground flex items-center gap-2">
+                        <li
+                          key={highlightIndex}
+                          className="text-sm text-muted-foreground flex items-center gap-2"
+                        >
                           <div className="w-1 h-1 bg-primary rounded-full" />
                           {highlight}
                         </li>
                       ))}
                       {project.highlights.length > 2 && (
                         <li className="text-xs text-primary mt-1 italic">
-                          + {project.highlights.length - 2} {lang === 'fr' ? 'autres (cliquez pour voir)' : 'more (click to view)'}
+                          + {project.highlights.length - 2}{" "}
+                          {lang === "fr" ? "autres (cliquez pour voir)" : "more (click to view)"}
                         </li>
                       )}
                     </ul>
                   </div>
 
                   <div>
-                    <h4 className="font-semibold mb-2 text-foreground">{t("projects.technologies")}</h4>
+                    <h4 className="font-semibold mb-2 text-foreground">
+                      {t("projects.technologies")}
+                    </h4>
                     <div className="flex flex-wrap gap-2">
                       {project.technologies.slice(0, 5).map((tech, techIndex) => (
                         <Badge key={techIndex} variant="outline" className="text-xs">
@@ -155,12 +166,16 @@ const ProjectsSection = () => {
           ))}
         </div>
       </div>
-      
-      <ProjectDetailsModal 
-        project={selectedProject} 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-      />
+
+      {isModalOpen && (
+        <Suspense fallback={null}>
+          <ProjectDetailsModal
+            project={selectedProject}
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
+        </Suspense>
+      )}
     </section>
   );
 };

@@ -1,67 +1,87 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Download, Mail, Github, Linkedin, Terminal, Phone, Bot, BarChart2, ChevronDown, MapPin } from "lucide-react";
+import { useState, useEffect, lazy, Suspense } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Download,
+  Mail,
+  Github,
+  Linkedin,
+  Terminal,
+  Phone,
+  Bot,
+  BarChart2,
+  ChevronDown,
+  MapPin,
+} from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { CyberParticles } from "@/components/ui/CyberParticles";
-import ContactForm from './ContactForm';
-import CvDownloadModal from './CvDownloadModal';
-import SkillsMatrixModal from './SkillsMatrixModal';
-import PortfolioStats from './PortfolioStats';
+import PortfolioStats from "./PortfolioStats";
 import { useLanguage } from "@/context/LanguageContext";
 
+const ContactForm = lazy(() => import("./ContactForm"));
+const CvDownloadModal = lazy(() => import("./CvDownloadModal"));
+const SkillsMatrixModal = lazy(() => import("./SkillsMatrixModal"));
+
 const Typewriter = ({ text, speed = 80 }: { text: string; speed?: number }) => {
-  const [displayText, setDisplayText] = useState('');
+  const [displayText, setDisplayText] = useState("");
   useEffect(() => {
     let i = 0;
-    setDisplayText('');
+    setDisplayText("");
     const timer = setInterval(() => {
-      if (i <= text.length) { setDisplayText(text.slice(0, i)); i++; }
-      else clearInterval(timer);
+      if (i <= text.length) {
+        setDisplayText(text.slice(0, i));
+        i++;
+      } else clearInterval(timer);
     }, speed);
     return () => clearInterval(timer);
   }, [text, speed]);
-  return <span>{displayText}<span className="animate-pulse text-primary">_</span></span>;
+  return (
+    <span>
+      {displayText}
+      <span className="animate-pulse text-primary">_</span>
+    </span>
+  );
 };
 
 const techStack = [
-  { label: "Python",    color: "text-yellow-400  border-yellow-400/30  bg-yellow-400/8"  },
-  { label: "FastAPI",   color: "text-green-400   border-green-400/30   bg-green-400/8"   },
-  { label: "React",     color: "text-cyan-400    border-cyan-400/30    bg-cyan-400/8"    },
-  { label: "Docker",    color: "text-blue-400    border-blue-400/30    bg-blue-400/8"    },
-  { label: "LLM",       color: "text-primary     border-primary/30     bg-primary/8"     },
-  { label: "CI/CD",     color: "text-sky-400     border-sky-400/30     bg-sky-400/8"     },
+  { label: "Python", color: "text-yellow-400  border-yellow-400/30  bg-yellow-400/8" },
+  { label: "FastAPI", color: "text-green-400   border-green-400/30   bg-green-400/8" },
+  { label: "React", color: "text-cyan-400    border-cyan-400/30    bg-cyan-400/8" },
+  { label: "Docker", color: "text-blue-400    border-blue-400/30    bg-blue-400/8" },
+  { label: "LLM", color: "text-primary     border-primary/30     bg-primary/8" },
+  { label: "CI/CD", color: "text-sky-400     border-sky-400/30     bg-sky-400/8" },
 ];
 
 const socials = [
-  { href: "https://github.com/rayenguesmi",               icon: Github,  label: "GitHub"   },
+  { href: "https://github.com/rayenguesmi", icon: Github, label: "GitHub" },
   { href: "https://linkedin.com/in/rayen-guesmi-3141a1308", icon: Linkedin, label: "LinkedIn" },
-  { href: "mailto:rayen.guesmi@esprit.tn",                icon: Mail,    label: "Email"    },
-  { href: "tel:+21629046070",                             icon: Phone,   label: "Phone"    },
+  { href: "mailto:rayen.guesmi@esprit.tn", icon: Mail, label: "Email" },
+  { href: "tel:+21629046070", icon: Phone, label: "Phone" },
 ];
 
 const HeroSection = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
-  const [isContactFormOpen,  setContactFormOpen]  = useState(false);
-  const [isCvModalOpen,      setCvModalOpen]      = useState(false);
+  const [isContactFormOpen, setContactFormOpen] = useState(false);
+  const [isCvModalOpen, setCvModalOpen] = useState(false);
   const [isSkillsMatrixOpen, setSkillsMatrixOpen] = useState(false);
 
-  const handleOpenContactForm  = () => setContactFormOpen(true);
-  const handleOpenCvModal      = () => setCvModalOpen(true);
+  const handleOpenContactForm = () => setContactFormOpen(true);
+  const handleOpenCvModal = () => setCvModalOpen(true);
   const handleOpenSkillsMatrix = () => setSkillsMatrixOpen(true);
 
   return (
     <>
-      <section id="about" className="min-h-screen flex flex-col items-center justify-center pt-16 matrix-bg relative overflow-hidden">
+      <section
+        id="about"
+        className="min-h-screen flex flex-col items-center justify-center pt-16 matrix-bg relative overflow-hidden"
+      >
         <CyberParticles />
 
         <div className="container mx-auto px-4 relative z-10 w-full">
           <div className="grid lg:grid-cols-2 gap-16 items-center py-12">
-
             {/* ── Photo ── */}
             <ScrollReveal direction="right">
               <div className="relative flex justify-center lg:justify-start">
-
                 {/* Glow blobs */}
                 <div className="absolute -inset-10 rounded-full bg-primary/8 blur-3xl" />
                 <div className="absolute -inset-6 rounded-full bg-accent/6 blur-2xl" />
@@ -107,7 +127,6 @@ const HeroSection = () => {
             {/* ── Text ── */}
             <ScrollReveal direction="left" delay={0.2}>
               <div className="space-y-5">
-
                 {/* Status */}
                 <div className="flex items-center gap-3">
                   <div className="status-badge">
@@ -154,7 +173,6 @@ const HeroSection = () => {
 
                 {/* CTA buttons */}
                 <div className="flex flex-wrap gap-2.5">
-
                   {/* Primary */}
                   <button
                     onClick={handleOpenCvModal}
@@ -186,7 +204,7 @@ const HeroSection = () => {
 
                   {/* Ask AI */}
                   <button
-                    onClick={() => navigate('/chat')}
+                    onClick={() => navigate("/chat")}
                     className="group flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-accent border border-accent/25 bg-accent/5 hover:bg-accent/12 hover:border-accent/55 hover:shadow-[0_0_20px_hsl(215_90%_62%/0.18)] transition-all duration-300"
                   >
                     <Bot className="h-4 w-4 transition-transform group-hover:rotate-12 duration-300" />
@@ -195,7 +213,7 @@ const HeroSection = () => {
 
                   {/* Activity */}
                   <button
-                    onClick={() => navigate('/activity')}
+                    onClick={() => navigate("/activity")}
                     className="group flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-accent border border-accent/25 bg-accent/5 hover:bg-accent/12 hover:border-accent/55 hover:shadow-[0_0_20px_hsl(215_90%_62%/0.18)] transition-all duration-300"
                   >
                     <Github className="h-4 w-4 transition-transform group-hover:scale-110 duration-200" />
@@ -218,7 +236,9 @@ const HeroSection = () => {
                     </a>
                   ))}
                   <span className="mx-2 h-5 w-px bg-border" />
-                  <span className="text-xs text-muted-foreground select-all">rayen.guesmi@esprit.tn</span>
+                  <span className="text-xs text-muted-foreground select-all">
+                    rayen.guesmi@esprit.tn
+                  </span>
                 </div>
 
                 <PortfolioStats />
@@ -234,9 +254,11 @@ const HeroSection = () => {
         </div>
       </section>
 
-      {isContactFormOpen  && <ContactForm      onClose={() => setContactFormOpen(false)}  />}
-      {isCvModalOpen      && <CvDownloadModal  onClose={() => setCvModalOpen(false)}      />}
-      {isSkillsMatrixOpen && <SkillsMatrixModal onClose={() => setSkillsMatrixOpen(false)} />}
+      <Suspense fallback={null}>
+        {isContactFormOpen && <ContactForm onClose={() => setContactFormOpen(false)} />}
+        {isCvModalOpen && <CvDownloadModal onClose={() => setCvModalOpen(false)} />}
+        {isSkillsMatrixOpen && <SkillsMatrixModal onClose={() => setSkillsMatrixOpen(false)} />}
+      </Suspense>
     </>
   );
 };

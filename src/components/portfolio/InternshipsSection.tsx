@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Building2, Calendar, MapPin, Briefcase } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import InternshipDetailsModal, { Internship } from "./InternshipDetailsModal";
+import type { Internship } from "./InternshipDetailsModal";
 import { internships } from "@/data/portfolio";
 import { internshipsFr } from "@/data/portfolio.fr";
 import { useLanguage } from "@/context/LanguageContext";
+
+const InternshipDetailsModal = lazy(() => import("./InternshipDetailsModal"));
 
 const InternshipsSection = () => {
   const { lang, t } = useLanguage();
@@ -36,7 +38,7 @@ const InternshipsSection = () => {
         <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {currentInternships.map((internship, index) => (
             <ScrollReveal key={index} delay={index * 0.1}>
-              <Card 
+              <Card
                 className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow cursor-pointer hover:scale-[1.02] active:scale-[0.98] h-full"
                 onClick={() => handleInternshipClick(internship)}
               >
@@ -45,7 +47,11 @@ const InternshipsSection = () => {
                     <div className="flex items-center gap-4">
                       {internship.logoUrl ? (
                         <div className="w-12 h-12 rounded-lg bg-white/10 p-2 flex items-center justify-center">
-                          <img src={internship.logoUrl} alt={internship.company} className="w-full h-full object-contain" />
+                          <img
+                            src={internship.logoUrl}
+                            alt={internship.company}
+                            className="w-full h-full object-contain"
+                          />
                         </div>
                       ) : (
                         <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -91,11 +97,15 @@ const InternshipsSection = () => {
         </div>
       </div>
 
-      <InternshipDetailsModal 
-        internship={selectedInternship}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      {isModalOpen && (
+        <Suspense fallback={null}>
+          <InternshipDetailsModal
+            internship={selectedInternship}
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
+        </Suspense>
+      )}
     </section>
   );
 };

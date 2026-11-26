@@ -103,6 +103,10 @@ const HeroSection = () => {
                     <img
                       src="/Gemini_Generated_Image_h0mwonh0mwonh0mw-removebg-preview.png"
                       alt="Rayen Guesmi"
+                      width={320}
+                      height={320}
+                      loading="eager"
+                      decoding="async"
                       className="w-72 h-72 lg:w-80 lg:h-80 object-cover"
                     />
                   </div>

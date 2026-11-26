@@ -50,6 +50,10 @@ const InternshipsSection = () => {
                           <img
                             src={internship.logoUrl}
                             alt={internship.company}
+                            width={48}
+                            height={48}
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-contain"
                           />
                         </div>

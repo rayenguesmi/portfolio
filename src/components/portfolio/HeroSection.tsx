@@ -234,9 +234,10 @@ const HeroSection = () => {
                       target={href.startsWith("http") ? "_blank" : undefined}
                       rel="noopener noreferrer"
                       title={label}
+                      aria-label={label}
                       className="w-9 h-9 flex items-center justify-center rounded-lg border border-border text-muted-foreground hover:text-primary hover:border-primary/45 hover:bg-primary/8 hover:shadow-[0_0_10px_hsl(43_75%_55%/0.15)] transition-all duration-200"
                     >
-                      <Icon className="h-4 w-4" />
+                      <Icon className="h-4 w-4" aria-hidden="true" />
                     </a>
                   ))}
                   <span className="mx-2 h-5 w-px bg-border" />

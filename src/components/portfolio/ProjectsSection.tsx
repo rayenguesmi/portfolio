@@ -4,14 +4,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Briefcase, Github } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import ProjectDetailsModal from "./ProjectDetailsModal";
+import ProjectDetailsModal, { Project } from "./ProjectDetailsModal";
 import { projects } from "@/data/portfolio";
 import { projectsFr } from "@/data/portfolio.fr";
 import { useLanguage } from "@/context/LanguageContext";
 
 const ProjectsSection = () => {
   const { lang, t } = useLanguage();
-  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All");
 
@@ -23,7 +23,7 @@ const ProjectsSection = () => {
     ? currentProjects 
     : currentProjects.filter(project => project.category === activeCategory);
 
-  const handleProjectClick = (project: any) => {
+  const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
     setIsModalOpen(true);
   };

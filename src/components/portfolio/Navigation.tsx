@@ -2,6 +2,16 @@ import { useState, useEffect } from "react";
 import { Menu, X, Shield, User, Award, Briefcase, GraduationCap, Languages, Heart } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
+const NAV_SECTION_IDS = [
+  "about",
+  "certifications",
+  "projects",
+  "internships",
+  "education",
+  "languages",
+  "motivation",
+];
+
 const Navigation = () => {
   const { lang, setLang, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +36,7 @@ const Navigation = () => {
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
-    navItems.forEach(({ id }) => {
+    NAV_SECTION_IDS.forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
       const obs = new IntersectionObserver(
@@ -37,7 +47,7 @@ const Navigation = () => {
       observers.push(obs);
     });
     return () => observers.forEach(o => o.disconnect());
-  }, [lang]); // re-observe when lang changes to re-read labels
+  }, []);
 
   const scrollTo = (href: string) => {
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });

@@ -15,7 +15,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Calendar, MapPin, Building2, CheckCircle2, Github } from "lucide-react";
+import { Calendar, MapPin, Building2, CheckCircle2, Github, LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -26,7 +26,7 @@ export interface Project {
   period: string;
   location: string;
   description: string;
-  icon: any;
+  icon: LucideIcon;
   category: string;
   technologies: string[];
   highlights: string[];

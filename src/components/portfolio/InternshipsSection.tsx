@@ -3,19 +3,19 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Building2, Calendar, MapPin, Briefcase } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import InternshipDetailsModal from "./InternshipDetailsModal";
+import InternshipDetailsModal, { Internship } from "./InternshipDetailsModal";
 import { internships } from "@/data/portfolio";
 import { internshipsFr } from "@/data/portfolio.fr";
 import { useLanguage } from "@/context/LanguageContext";
 
 const InternshipsSection = () => {
   const { lang, t } = useLanguage();
-  const [selectedInternship, setSelectedInternship] = useState<any>(null);
+  const [selectedInternship, setSelectedInternship] = useState<Internship | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const currentInternships = lang === "fr" ? internshipsFr : internships;
 
-  const handleInternshipClick = (internship: any) => {
+  const handleInternshipClick = (internship: Internship) => {
     setSelectedInternship(internship);
     setIsModalOpen(true);
   };

@@ -6,9 +6,22 @@ export const CyberParticles = () => {
   const [init, setInit] = useState(false);
 
   useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => setInit(true));
+    // Respecter prefers-reduced-motion pour l'accessibilité et la performance
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
+    // Initialisation différée (idle) pour ne pas concurrencer le First Contentful Paint
+    const timer = setTimeout(() => {
+      initParticlesEngine(async (engine) => {
+        await loadSlim(engine);
+      }).then(() => setInit(true));
+    }, 150);
+
+    return () => clearTimeout(timer);
   }, []);
 
   if (!init) return null;

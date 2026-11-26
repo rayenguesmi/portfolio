@@ -93,9 +93,9 @@ const HeroSection = () => {
                 <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-accent/40" />
 
                 {/* Slow rotating dashed ring */}
-                <div className="absolute inset-[-16px] rounded-full border-2 border-dashed border-primary/15 animate-[spin_25s_linear_infinite]" />
+                <div className="absolute inset-[-16px] rounded-full border-2 border-dashed border-primary/15 animate-[spin_25s_linear_infinite] motion-reduce:animate-none" />
                 {/* Counter-rotating dots ring */}
-                <div className="absolute inset-[-8px] rounded-full border border-border animate-[spin_15s_linear_infinite_reverse]" />
+                <div className="absolute inset-[-8px] rounded-full border border-border animate-[spin_15s_linear_infinite_reverse] motion-reduce:animate-none" />
 
                 {/* Photo frame */}
                 <div className="relative p-[3px] rounded-full bg-gradient-to-br from-primary via-accent/50 to-primary/20 shadow-[0_0_50px_hsl(43_75%_55%/0.2),0_0_100px_hsl(43_75%_55%/0.08)]">

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTheme } from "next-themes";
 import {
   Menu,
   X,
@@ -10,6 +11,8 @@ import {
   GraduationCap,
   Languages,
   Heart,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -25,11 +28,17 @@ const NAV_SECTION_IDS = [
 
 const Navigation = () => {
   const { lang, setLang, t } = useLanguage();
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
   const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navItems = [
     { icon: User, label: t("nav.about"), href: "#about", id: "about" },
@@ -132,7 +141,7 @@ const Navigation = () => {
               })}
             </div>
 
-            {/* Right side: Lang toggle + Mobile button */}
+            {/* Right side: Lang toggle + Theme toggle + Mobile button */}
             <div className="flex items-center gap-2">
               {/* Language pill toggle */}
               <button
@@ -162,6 +171,22 @@ const Navigation = () => {
                 >
                   FR
                 </span>
+              </button>
+
+              {/* Theme toggle button */}
+              <button
+                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                title={
+                  lang === "fr" ? "Changer de thème (sombre/clair)" : "Toggle theme (dark/light)"
+                }
+                aria-label={lang === "fr" ? "Changer de thème" : "Toggle theme"}
+                className="w-9 h-9 flex items-center justify-center rounded-lg border border-border bg-card/40 backdrop-blur-sm text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors"
+              >
+                {mounted && resolvedTheme === "light" ? (
+                  <Moon className="h-4 w-4 text-primary" aria-hidden="true" />
+                ) : (
+                  <Sun className="h-4 w-4 text-primary" aria-hidden="true" />
+                )}
               </button>
 
               {/* Mobile toggle */}

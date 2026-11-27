@@ -1,9 +1,4 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
@@ -20,6 +15,7 @@ export interface Internship {
   companyUrl: string;
   technologies: string[];
   certificateUrl?: string;
+  type?: "experience" | "internship";
 }
 
 interface InternshipDetailsModalProps {
@@ -39,7 +35,11 @@ const InternshipDetailsModal = ({ internship, isOpen, onClose }: InternshipDetai
           <div className="flex items-start gap-4">
             <div className="w-16 h-16 rounded-lg bg-muted/40 p-2 flex items-center justify-center shrink-0">
               {internship.logoUrl ? (
-                <img src={internship.logoUrl} alt={`${internship.company} logo`} className="w-full h-full object-contain" />
+                <img
+                  src={internship.logoUrl}
+                  alt={`${internship.company} logo`}
+                  className="w-full h-full object-contain"
+                />
               ) : (
                 <Building2 className="w-8 h-8 text-primary" />
               )}
@@ -47,7 +47,7 @@ const InternshipDetailsModal = ({ internship, isOpen, onClose }: InternshipDetai
             <div>
               <DialogTitle className="text-2xl font-bold">{internship.company}</DialogTitle>
               {internship.companyUrl && (
-                <a 
+                <a
                   href={internship.companyUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -94,7 +94,11 @@ const InternshipDetailsModal = ({ internship, isOpen, onClose }: InternshipDetai
               <h3 className="text-lg font-semibold mb-3">{t("internship.technologies")}</h3>
               <div className="flex flex-wrap gap-2">
                 {internship.technologies.map((tech, index) => (
-                  <Badge key={index} variant="outline" className="bg-background/50 hover:bg-background">
+                  <Badge
+                    key={index}
+                    variant="outline"
+                    className="bg-background/50 hover:bg-background"
+                  >
                     {tech}
                   </Badge>
                 ))}
@@ -103,9 +107,9 @@ const InternshipDetailsModal = ({ internship, isOpen, onClose }: InternshipDetai
 
             {internship.certificateUrl && (
               <div className="pt-4 flex justify-center">
-                <Button 
+                <Button
                   className="gap-2"
-                  onClick={() => window.open(internship.certificateUrl, '_blank')}
+                  onClick={() => window.open(internship.certificateUrl, "_blank")}
                 >
                   <ExternalLink className="h-4 w-4" />
                   {t("internship.viewCert")}

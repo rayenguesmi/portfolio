@@ -389,7 +389,7 @@ export const internships: Internship[] = [
     location: "Ben Arous, Tunisia",
     description:
       "Designing and developing production software architectures: AI quotation management platforms, barcode/QR inventory tracking systems, and mobile travel expense tools. Full-stack development with React, Node.js, FastAPI, PostgreSQL, and Docker.",
-    logoUrl: "/download-removebg-preview.png",
+    logoUrl: "/enerp-logo.png",
     companyUrl: "",
     technologies: [
       "React",
@@ -402,6 +402,7 @@ export const internships: Internship[] = [
       "AI Integration",
     ],
     certificateUrl: "",
+    type: "experience" as const,
   },
   {
     company: "Tunisie Telecom",
@@ -426,6 +427,7 @@ export const internships: Internship[] = [
       "GitHub Actions",
     ],
     certificateUrl: "",
+    type: "internship" as const,
   },
   {
     company: "Neolians",
@@ -446,6 +448,7 @@ export const internships: Internship[] = [
       "AI Integration",
     ],
     certificateUrl: "",
+    type: "internship" as const,
   },
   {
     company: "EnerP",
@@ -454,10 +457,11 @@ export const internships: Internship[] = [
     location: "Ben Arous, Tunisia",
     description:
       "Developed a telemetry web application for photovoltaic solar system monitoring and energy performance analysis. Enabled real-time tracking of production metrics.",
-    logoUrl: "/download-removebg-preview.png",
+    logoUrl: "/enerp-logo.png",
     companyUrl: "",
     technologies: ["Web Development", "Data Analysis", "Performance Monitoring", "Telemetry"],
     certificateUrl: "",
+    type: "internship" as const,
   },
   {
     company: "Amen Bank",
@@ -470,6 +474,7 @@ export const internships: Internship[] = [
     companyUrl: "",
     technologies: ["VoIP", "Network Optimization", "QoS", "Telecommunications", "Wireshark"],
     certificateUrl: "",
+    type: "internship" as const,
   },
 ];
 

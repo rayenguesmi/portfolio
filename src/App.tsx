@@ -9,6 +9,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 const Index = lazy(() => import("./pages/Index"));
 const Chatbot = lazy(() => import("./pages/Chatbot"));
 const Activity = lazy(() => import("./pages/Activity"));
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const LoadingFallback = () => (
@@ -26,6 +27,7 @@ const App = () => (
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/chat" element={<Chatbot />} />
             <Route path="/activity" element={<Activity />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

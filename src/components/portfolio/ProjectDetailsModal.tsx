@@ -15,7 +15,16 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Calendar, MapPin, Building2, CheckCircle2, Github, LucideIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+import {
+  Calendar,
+  MapPin,
+  Building2,
+  CheckCircle2,
+  Github,
+  ExternalLink,
+  LucideIcon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -158,8 +167,16 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
                       <span>{project.location}</span>
                     </div>
                   )}
-                  {project.githubUrl && (
-                    <div className="pt-2">
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {project.slug && (
+                      <Button size="sm" className="gap-2" asChild onClick={() => onClose()}>
+                        <Link to={`/projects/${project.slug}`}>
+                          <ExternalLink className="h-4 w-4" />
+                          {lang === "fr" ? "Étude de cas complète" : "Full Case Study"}
+                        </Link>
+                      </Button>
+                    )}
+                    {project.githubUrl && (
                       <Button
                         variant="outline"
                         size="sm"
@@ -169,8 +186,8 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
                         <Github className="h-4 w-4" />
                         {t("modal.viewSource")}
                       </Button>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
 

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Menu,
   X,
@@ -24,6 +25,8 @@ const NAV_SECTION_IDS = [
 
 const Navigation = () => {
   const { lang, setLang, t } = useLanguage();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
   const [scrolled, setScrolled] = useState(false);
@@ -62,8 +65,15 @@ const Navigation = () => {
   }, []);
 
   const scrollTo = (href: string) => {
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
     setIsOpen(false);
+    if (location.pathname !== "/") {
+      navigate("/" + href);
+      setTimeout(() => {
+        document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else {
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const toggleLang = () => setLang(lang === "en" ? "fr" : "en");

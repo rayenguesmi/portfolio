@@ -15,25 +15,43 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Calendar, MapPin, Building2, CheckCircle2, Github } from "lucide-react";
+import { Link } from "react-router-dom";
+import {
+  Calendar,
+  MapPin,
+  Building2,
+  CheckCircle2,
+  Github,
+  ExternalLink,
+  LucideIcon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/context/LanguageContext";
 
 // Define the interface based on usage in ProjectsSection
 export interface Project {
+  slug: string;
   title: string;
   company: string;
   period: string;
   location: string;
   description: string;
-  icon: any;
+  icon: LucideIcon;
   category: string;
   technologies: string[];
   highlights: string[];
   status: string;
+  role?: string;
+  problem?: string;
+  solution?: string;
+  architecture?: string;
+  challenges?: string[];
+  results?: string[];
+  features?: string[];
   images?: string[];
   videoUrl?: string; // Optional demo video path (relative to public/)
   githubUrl?: string;
+  demoUrl?: string;
 }
 
 interface ProjectDetailsModalProps {
@@ -63,9 +81,7 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
                 <project.icon className="h-6 w-6 text-primary" />
                 {project.title}
               </DialogTitle>
-              <DialogDescription className="mt-2 text-base">
-                {project.category}
-              </DialogDescription>
+              <DialogDescription className="mt-2 text-base">{project.category}</DialogDescription>
             </div>
             <Badge
               variant={project.status === "Completed" ? "default" : "secondary"}
@@ -89,7 +105,12 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
                     muted
                     playsInline
                     preload="metadata"
-                    style={{ maxWidth: "100%", height: "100%", width: "100%", objectFit: "contain" }}
+                    style={{
+                      maxWidth: "100%",
+                      height: "100%",
+                      width: "100%",
+                      objectFit: "contain",
+                    }}
                   />
                 </AspectRatio>
               </div>
@@ -103,7 +124,10 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
                     {project.images!.map((img, index) => (
                       <CarouselItem key={index}>
                         <div className="p-1">
-                          <AspectRatio ratio={16 / 9} className="bg-muted rounded-lg overflow-hidden border">
+                          <AspectRatio
+                            ratio={16 / 9}
+                            className="bg-muted rounded-lg overflow-hidden border"
+                          >
                             <img
                               src={img}
                               alt={`${project.title} screenshot ${index + 1}`}
@@ -125,9 +149,7 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-semibold mb-3">{t("modal.about")}</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {project.description}
-                  </p>
+                  <p className="text-muted-foreground leading-relaxed">{project.description}</p>
                 </div>
 
                 <div className="flex flex-col gap-3">
@@ -145,19 +167,27 @@ const ProjectDetailsModal = ({ project, isOpen, onClose }: ProjectDetailsModalPr
                       <span>{project.location}</span>
                     </div>
                   )}
-                  {project.githubUrl && (
-                    <div className="pt-2">
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {project.slug && (
+                      <Button size="sm" className="gap-2" asChild onClick={() => onClose()}>
+                        <Link to={`/projects/${project.slug}`}>
+                          <ExternalLink className="h-4 w-4" />
+                          {lang === "fr" ? "Étude de cas complète" : "Full Case Study"}
+                        </Link>
+                      </Button>
+                    )}
+                    {project.githubUrl && (
                       <Button
                         variant="outline"
                         size="sm"
                         className="gap-2"
-                        onClick={() => window.open(project.githubUrl, '_blank')}
+                        onClick={() => window.open(project.githubUrl, "_blank")}
                       >
                         <Github className="h-4 w-4" />
                         {t("modal.viewSource")}
                       </Button>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
 

@@ -86,9 +86,10 @@ const Chatbot = () => {
       }
 
       return choice.message.content || "Error: The AI returned an empty response.";
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
       console.error("AI Error:", error);
-      return `Sorry, I encountered an error: ${error.message || "Unknown error"}. Please check your network or API token.`;
+      return `Sorry, I encountered an error: ${errorMessage}. Please check your network or API token.`;
     }
   };
 
